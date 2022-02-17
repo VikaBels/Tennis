@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           NewGame.routeName: (ctx) => NewGame(),
           GameHistory.routeName: (ctx) => GameHistory(),
           PageOne.routeName: (ctx) => PageOne(),
-          AboutGame.routeName: (ctx) => AboutGame(),
+          Home.routeName: (ctx) => Home(),
         });
   }
 }
