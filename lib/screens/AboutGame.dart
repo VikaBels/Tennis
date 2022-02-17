@@ -80,7 +80,7 @@ Widget ForInfo(BuildContext context, var post) {
         return ListView(
           children: [
             SizedBox(
-              height: 15,
+              height: 16,
             ),
             Text(
               snapshot.data!.title,
