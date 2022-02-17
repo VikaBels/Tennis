@@ -73,7 +73,7 @@ class PageOne extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AboutGame.routeName);
+                  Navigator.of(context).pushNamed(Home.routeName);
                 }),
           ],
         ),

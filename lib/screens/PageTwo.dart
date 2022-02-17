@@ -8,13 +8,6 @@ import 'package:table_tennis/widgets/AboutPerson.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 
 class PageTwo extends StatefulWidget {
-  final nameOne;
-  final nameTwo;
-  final depOne;
-  final depTwo;
-
-  PageTwo({this.nameOne, this.nameTwo, this.depOne, this.depTwo});
-
   static const routeName = '/pagetwo';
 
   @override
@@ -86,12 +79,7 @@ class _PageTwoState extends State<PageTwo> {
                 SizedBox(width: 20),
                 TextButton(
                   onPressed: () {
-                    if (widget.nameOne != '' &&
-                        widget.nameTwo != '' &&
-                        widget.depOne != '' &&
-                        widget.depTwo != '') {
-                      Navigator.of(context).pushNamed(NewGame.routeName);
-                    }
+                    Navigator.of(context).pushNamed(NewGame.routeName);
                   },
                   child: Text(
                     'Начать игру',
@@ -101,31 +89,19 @@ class _PageTwoState extends State<PageTwo> {
               ],
             ),
           ),
-          isTwo ? twoPeople(context) : fourPeople(context),
+          isTwo ? peopleList(2) : peopleList(4),
         ],
       ),
     );
   }
 }
 
-Widget twoPeople(BuildContext context) {
-  return Column(
-    children: [
-      AboutPerson(1),
-      SizedBox(height: 5),
-      AboutPerson(2),
-      SizedBox(height: 5),
-    ],
-  );
-}
-
-Widget fourPeople(BuildContext context) {
-  return Column(
-    children: [
-      twoPeople(context),
-      AboutPerson(3),
-      SizedBox(height: 5),
-      AboutPerson(4),
-    ],
+Widget peopleList(int num) {
+  return ListView.builder(
+    shrinkWrap: true,
+    itemBuilder: (context, index) {
+      return AboutPerson(++index);
+    },
+    itemCount: num,
   );
 }
