@@ -35,38 +35,47 @@ class _FieldState extends State<Field> {
                 border: OutlineInputBorder(),
               ),
               onTap: () {
-                showDialog(
+                showModalBottomSheet(
+                  barrierColor: Colors.white.withOpacity(0),
+                  backgroundColor: Colors.grey.shade300,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(10)), //for the round edges
                   context: context,
                   builder: (context) {
-                    return Dialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      elevation: 10,
+                    return Container(
+                      height: 200,
                       child: ListView(
                         children: widget.snapshot.data!.map((per) {
-                          return Center(
-                            child: Card(
-                              child: ListTile(
-                                title: widget.isName
-                                    ? Text(per.name)
-                                    : Text(per.department),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  setState(() {
-                                    if (selectedId == null) {
-                                      nameController.text = per.name;
-                                      departmentController.text =
-                                          per.department;
-                                      selectedId = per.id;
-                                    } else {
-                                      nameController.text = '';
-                                      departmentController.text = '';
-                                      selectedId = null;
-                                    }
-                                  });
-                                },
-                                onLongPress: () async {},
-                              ),
+                          return Card(
+                            color: Colors.grey.shade400,
+                            child: ListTile(
+                              title: widget.isName
+                                  ? Text(
+                                      per.name,
+                                      textAlign: TextAlign.center,
+                                    )
+                                  : Text(
+                                      per.department,
+                                      textAlign: TextAlign.center,
+                                    ),
+                              onTap: () {
+                                Navigator.pop(context);
+                                setState(() {
+                                  if (selectedId == null) {
+                                    widget.isName
+                                        ? nameController.text = per.name
+                                        : departmentController.text =
+                                            per.department;
+                                    selectedId = per.id;
+                                  } else {
+                                    widget.isName
+                                        ? nameController.text = ''
+                                        : departmentController.text = '';
+                                    selectedId = null;
+                                  }
+                                });
+                              },
                             ),
                           );
                         })
