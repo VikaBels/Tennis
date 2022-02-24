@@ -4,15 +4,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:table_tennis/model/Post.dart';
+import 'package:table_tennis/widgets/InfoAboutTennis.dart';
 
-class Home extends StatefulWidget {
-  static const routeName = '/GameHistory';
+class AboutGame extends StatefulWidget {
+  static const routeName = '/AboutGame';
 
   @override
-  State<Home> createState() => _HomeState();
+  State<AboutGame> createState() => _AboutGameState();
 }
 
-class _HomeState extends State<Home> {
+class _AboutGameState extends State<AboutGame> {
   @override
   Widget build(BuildContext context) {
     return MyApp(post: fetchPost());
@@ -32,28 +34,6 @@ Future<Post> fetchPost() async {
   }
 }
 
-class Post {
-  final int pageid;
-  final int ns;
-  final String title;
-  final String extract;
-
-  Post(
-      {required this.pageid,
-      required this.ns,
-      required this.title,
-      required this.extract});
-
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      pageid: json['query']['pages']['30589']['pageid'],
-      ns: json['query']['pages']['30589']['ns'],
-      title: json['query']['pages']['30589']['title'],
-      extract: json['query']['pages']['30589']['extract'],
-    );
-  }
-}
-
 class MyApp extends StatelessWidget {
   final Future<Post> post;
 
@@ -66,49 +46,8 @@ class MyApp extends StatelessWidget {
         title: Text('About Tennis'),
       ),
       body: Center(
-        child: ForInfo(context, post),
+        child: InfoAboutTennis(context, post),
       ),
     );
   }
-}
-
-Widget ForInfo(BuildContext context, var post) {
-  return FutureBuilder<Post>(
-    future: post,
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return ListView(
-          children: [
-            SizedBox(
-              height: 16,
-            ),
-            Text(
-              snapshot.data!.title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(17),
-              child: Text(
-                snapshot.data!.extract,
-                style: TextStyle(
-                  fontSize: 17,
-                  letterSpacing: 0.6,
-                  wordSpacing: 2,
-                ),
-              ),
-            ),
-          ],
-        );
-      } else if (snapshot.hasError) {
-        return Text("${snapshot.error}");
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    },
-  );
 }
