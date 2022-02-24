@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:table_tennis/main.dart';
-import 'package:table_tennis/screens/PageOne.dart';
-import 'package:table_tennis/widgets/ListNumbers.dart';
+import '../screens/PageOne.dart';
+import '../widgets/ListNumbers.dart';
 
 class NewGame extends StatefulWidget {
   const NewGame({Key? key}) : super(key: key);
@@ -22,21 +21,27 @@ class _NewGameState extends State<NewGame> {
 
   int _count = 1;
 
-  void _incrementCounterOne() {
+  // https://question-it.com/questions/967077/vsplyvajuschee-dialogovoe-okno-pri-nazhatii-knopki-vo-flattere
+
+  void _incrementCounter(bool isOne) {
     setState(() {
-      _counterOne++;
+      if (isOne) {
+        _counterOne++;
+      } else {
+        _counterTwo++;
+      }
+
       _counterClick++;
 
-      if (_counterOne == 2) {
+      if (_counterOne == 2 || _counterTwo == 2) {
         showDialog(
-            barrierDismissible: false,
             context: context,
             builder: (context) {
               return Dialog(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 child: Container(
-                  padding: EdgeInsets.only(top: 7),
+                  padding: EdgeInsets.only(top: 8),
                   height: 90,
                   child: Column(
                     children: <Widget>[
@@ -66,56 +71,6 @@ class _NewGameState extends State<NewGame> {
               );
             });
       }
-      //
-      _count = _count + 1;
-    });
-  }
-
-  // https://question-it.com/questions/967077/vsplyvajuschee-dialogovoe-okno-pri-nazhatii-knopki-vo-flattere
-
-  void _incrementCounterTwo() {
-    setState(() {
-      _counterTwo++;
-      _counterClick++;
-
-      if (_counterTwo == 2) {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: Container(
-                  padding: EdgeInsets.only(top: 7),
-                  height: 90,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        'Игра окончена',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text('Игра окончена. Счёт $_counterOne-$_counterTwo'),
-                      Divider(
-                        height: 1,
-                      ),
-                      TextButton(
-                        style: ButtonStyle(),
-                        onPressed: null,
-                        child: Text(
-                          'OK',
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            });
-      }
-
-      //
       _count = _count + 1;
     });
   }
@@ -141,7 +96,7 @@ class _NewGameState extends State<NewGame> {
                 child: Text(
                   'Nastya',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -150,7 +105,7 @@ class _NewGameState extends State<NewGame> {
                 child: Text(
                   'Vika',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -167,7 +122,7 @@ class _NewGameState extends State<NewGame> {
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.white),
                 ),
-                onPressed: _incrementCounterOne,
+                onPressed: () => _incrementCounter(true),
                 child: Text(
                   '$_counterOne',
                   style: TextStyle(
@@ -190,7 +145,7 @@ class _NewGameState extends State<NewGame> {
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.white),
                 ),
-                onPressed: _incrementCounterTwo,
+                onPressed: () => _incrementCounter(false),
                 child: Text(
                   '$_counterTwo',
                   style: TextStyle(

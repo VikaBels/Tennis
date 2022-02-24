@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:table_tennis/screens/AboutGame.dart';
-import 'package:table_tennis/screens/GameHistory.dart';
-import 'package:table_tennis/screens/PageTwo.dart';
+import '../screens/AboutGame.dart';
+import '../screens/GameHistory.dart';
+import '../screens/PageTwo.dart';
 
 class PageOne extends StatelessWidget {
   const PageOne({Key? key}) : super(key: key);
@@ -73,7 +73,7 @@ class PageOne extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(Home.routeName);
+                  Navigator.of(context).pushNamed(AboutGame.routeName);
                 }),
           ],
         ),

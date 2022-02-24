@@ -1,9 +1,10 @@
 // ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:table_tennis/DataBase/FunctionP.dart';
-import 'package:table_tennis/model/Person.dart';
-import 'package:table_tennis/screens/PageTwo.dart';
+
+import '../DataBase/FunctionP.dart';
+import '../model/Person.dart';
+import '../screens/PageTwo.dart';
 
 class NewPerson extends StatefulWidget {
   const NewPerson({Key? key}) : super(key: key);
@@ -52,11 +53,11 @@ class _NewPersonState extends State<NewPerson> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 70),
+              padding: const EdgeInsets.only(top: 72),
               child: Text('Как зовут нового игрока?'),
             ),
             Container(
-              margin: EdgeInsets.only(top: 13, bottom: 40),
+              margin: EdgeInsets.only(top: 12, bottom: 40),
               height: 30,
               width: 170,
               child: TextField(
@@ -69,7 +70,7 @@ class _NewPersonState extends State<NewPerson> {
             ),
             Text('В каком отделе он работает?'),
             Container(
-              margin: EdgeInsets.only(top: 13),
+              margin: EdgeInsets.only(top: 12),
               height: 30,
               width: 170,
               child: TextFormField(

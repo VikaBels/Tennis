@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:table_tennis/model/Person.dart';
-import 'package:table_tennis/DataBase/FunctionP.dart';
+import '../model/Person.dart';
+import '../DataBase/FunctionP.dart';
 
 //https://www.youtube.com/watch?v=noi6aYsP7Go&t=438s
 //ОТСЮДА КОД. ОЧ ВАЖНОЕ
@@ -85,7 +85,6 @@ class _GameHistoryState extends State<GameHistory> {
                                     FuncPerson.instance.removePer(person.id!);
                                   });
                                 },
-                                /*При клике выводит имя элемента в appbar */
                               ),
                             ),
                           );
