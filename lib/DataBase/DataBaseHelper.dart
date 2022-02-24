@@ -31,13 +31,16 @@ class DatabaseHelper {
       department TEXT
     )
     ''');
-    //time-int/Unixtime
-    //points - 2 int
     await db.execute('''
     CREATE TABLE MATCH(
       id INTEGER PRIMARY KEY,
-      time TEXT,
-      points TEXT
+      time INT,
+      point_one INT,
+      point_two INT,
+      id_one INT,
+      id_two INT,
+      id_three INT,
+      id_four INT
     )
     ''');
   }
