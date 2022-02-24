@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'package:sqflite/sqflite.dart';
 import 'package:table_tennis/DataBase/DataBaseHelper.dart';
-import 'package:table_tennis/model/Department.dart';
 import 'package:table_tennis/model/Person.dart';
 
 class FuncPerson {
@@ -18,7 +17,7 @@ class FuncPerson {
   }
 
   ////////
-  Future<List<Department>> getDepartment() async {
+  /* Future<List<Department>> getDepartment() async {
     Database db = await DatabaseHelper.instance.database;
     var departments =
         await db.rawQuery('SELECT DISTINCT department FROM PERSON;');
@@ -37,7 +36,7 @@ class FuncPerson {
         ? persons.map((c) => Person.fromMap(c)).toList()
         : [];
     return personList;
-  }
+  }*/
   //////
 
   Future<int> addPer(Person person) async {
