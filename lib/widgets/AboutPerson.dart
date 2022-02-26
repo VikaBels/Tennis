@@ -19,12 +19,12 @@ class AboutPerson extends StatelessWidget {
         ),
         Flexible(
           flex: 2,
-          child: Field(snapshot, 'Отдел', false),
+          child: Field(snapshot, 'Отдел', false, number),
         ),
         SizedBox(width: 16),
         Flexible(
           flex: 2,
-          child: Field(snapshot, 'Имя', true),
+          child: Field(snapshot, 'Имя', true, number),
         ),
         SizedBox(width: 16),
       ],
@@ -32,7 +32,7 @@ class AboutPerson extends StatelessWidget {
   }
 }
 
- /* 
+/* 
  BoxDecoration myBoxDecoration() {
   return BoxDecoration(
     border: Border.all(width: 20, color: Colors.grey.shade300),
