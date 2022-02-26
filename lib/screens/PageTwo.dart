@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:table_tennis/model/Players.dart';
+import 'package:table_tennis/widgets/Field.dart';
 import 'package:table_tennis/widgets/PeopleList.dart';
 import '../DataBase/FunctionP.dart';
 import '../model/Person.dart';
@@ -15,8 +17,8 @@ class PageTwo extends StatefulWidget {
 }
 
 class _PageTwoState extends State<PageTwo> {
-  bool isTwo = true;
   bool isSwitched = false;
+  bool startGame = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _PageTwoState extends State<PageTwo> {
                   children: [
                     Expanded(
                         child: Text(
-                      'Сколько игроков?',
+                      'Сколько игроков 2/4?',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
@@ -57,11 +59,6 @@ class _PageTwoState extends State<PageTwo> {
                         onChanged: (value) {
                           setState(() {
                             isSwitched = value;
-                            if (value == true) {
-                              isTwo = false;
-                            } else {
-                              isTwo = true;
-                            }
                           });
                         },
                         activeTrackColor: Colors.grey.shade400,
@@ -71,17 +68,29 @@ class _PageTwoState extends State<PageTwo> {
                     SizedBox(width: 20),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed(NewGame.routeName);
+                        for (int i = 0; i < Players.players.length; i++) {
+                          if (Players.players[i].checkIfAnyIsNull()) {
+                            startGame = false;
+                          } else {
+                            startGame = true;
+                          }
+                        }
+                        startGame
+                            ? Navigator.of(context).pushNamed(NewGame.routeName)
+                            : null;
                       },
                       child: Text(
                         'Начать игру',
-                        style: TextStyle(color: Colors.black87),
+                        style: TextStyle(
+                          color: Colors.black87,
+                          //color: startGame ? Colors.black87 : Colors.black54,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              isTwo ? peopleList(2, snapshot) : peopleList(4, snapshot),
+              !isSwitched ? peopleList(2, snapshot) : peopleList(4, snapshot),
             ],
           );
         },
