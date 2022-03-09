@@ -4,8 +4,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:table_tennis/model/Post.dart';
-import 'package:table_tennis/widgets/InfoAboutTennis.dart';
+import '../model/Post.dart';
+import '../screens/PageOne.dart';
+import '../widgets/InfoAboutTennis.dart';
 
 class AboutGame extends StatefulWidget {
   static const routeName = '/AboutGame';
@@ -43,7 +44,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About Tennis'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushNamed(PageOne.routeName);
+          },
+        ),
       ),
       body: Center(
         child: InfoAboutTennis(context, post),
