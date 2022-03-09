@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_final_fields, prefer_const_literals_to_create_immutables, file_names, prefer_const_constructors, unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import '../DataBase/FunctionM.dart';
+import '../screens/PageOne.dart';
 
-import '../model/Person.dart';
-import '../DataBase/FunctionP.dart';
+import '../model/Match.dart';
 
 //https://www.youtube.com/watch?v=noi6aYsP7Go&t=438s
-//ОТСЮДА КОД. ОЧ ВАЖНОЕ
+// ОЧ ВАЖНОЕ
 class GameHistory extends StatefulWidget {
   const GameHistory({Key? key}) : super(key: key);
   static const routeName = '/GameHistory';
@@ -17,7 +17,83 @@ class GameHistory extends StatefulWidget {
 }
 
 class _GameHistoryState extends State<GameHistory> {
-  String _timeString =
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.indigo,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pushNamed(PageOne.routeName);
+            },
+          ),
+        ),
+        body: Center(
+          child: FutureBuilder<List<Match>>(
+              future: FuncMatch.instance.getMatchs(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Match>> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: Text('Loading...'));
+                }
+                return snapshot.data!.isEmpty
+                    ? Center(
+                        child: Text('No Persons in List.'),
+                      )
+                    : ListView(
+                        children: snapshot.data!.map((person) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 19, top: 9),
+                                child: Text(
+                                  person.time,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                      //'${person.id_one}',
+                                      'Per 1'),
+                                  Text(
+                                      '${person.point_one}  -  ${person.point_two}'),
+                                  Text(
+                                      //'${person.id_two}',
+                                      'Per 2'),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.grey[300],
+                                height: 18,
+                                thickness: 1,
+                                indent: 15,
+                                endIndent: 15,
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      );
+              }),
+        ),
+      ),
+    );
+  }
+}
+
+ 
+
+
+ /*String _timeString =
       DateFormat('yyyy-dd-MM  kk:mm').format(DateTime.now()).toString();
 
   int? selectedId;
@@ -117,53 +193,6 @@ class _GameHistoryState extends State<GameHistory> {
         ),
       ),
     );
-  }
-}
+  }*/
 
 
-
-
-
-
-
-
-
-/*body: Column(
-        children: <Widget>[
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 19, top: 9),
-                child: Text(
-                  _timeString.toString(),
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    'Name one',
-                  ),
-                  Text(' 12'),
-                  Text('-'),
-                  Text('14 '),
-                  Text(
-                    'Name two',
-                  ),
-                ],
-              ),
-              Divider(
-                color: Colors.grey[300],
-                height: 18,
-                thickness: 1,
-                indent: 15,
-                endIndent: 15,
-              ),
-            ],
-          ),
-        ],
-      ),*/
