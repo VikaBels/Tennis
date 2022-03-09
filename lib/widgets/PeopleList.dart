@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:table_tennis/model/Player.dart';
-import 'package:table_tennis/model/Players.dart';
 import '../model/Person.dart';
 import '../widgets/AboutPerson.dart';
 
@@ -18,10 +17,10 @@ Widget peopleList(int num, AsyncSnapshot<List<Person>> snapshot) {
 }
 
 void fillPlayersList(int num) {
-  if (Players.players.length < num) {
-    Players.players.add(new Player());
+  if (Player.players.length < num) {
+    Player.players.add(new Player());
   }
-  while (Players.players.length > num) {
-    Players.players.removeLast();
+  while (Player.players.length > num) {
+    Player.players.removeLast();
   }
 }
