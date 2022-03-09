@@ -2,7 +2,7 @@
 
 class Match {
   final int? id;
-  final int time;
+  final String time;
   final int point_one;
   final int point_two;
   final int id_one;
@@ -11,7 +11,7 @@ class Match {
   final int? id_four;
 
   Match({
-    required this.id,
+    this.id,
     required this.time,
     required this.point_one,
     required this.point_two,
