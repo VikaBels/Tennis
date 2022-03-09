@@ -1,9 +1,13 @@
-// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, unnecessary_new
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, unnecessary_new, prefer_final_fields, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:table_tennis/model/Player.dart';
+import 'package:table_tennis/model/Point.dart';
+import '../DataBase/FunctionM.dart';
+import '../model/Match.dart';
 
 import '../screens/PageOne.dart';
-import '../widgets/ListNumbers.dart';
 
 class NewGame extends StatefulWidget {
   const NewGame({Key? key}) : super(key: key);
@@ -20,7 +24,11 @@ class _NewGameState extends State<NewGame> {
   int _counterClick = 0;
 
   int _count = 1;
+  //List<Map<String, int>> items = [];
+  List<Point> point = [];
 
+  String _timeString =
+      DateFormat('yyyy-dd-MM  kk:mm').format(DateTime.now()).toString();
   // https://question-it.com/questions/967077/vsplyvajuschee-dialogovoe-okno-pri-nazhatii-knopki-vo-flattere
 
   void _incrementCounter(bool isOne) {
@@ -33,7 +41,7 @@ class _NewGameState extends State<NewGame> {
 
       _counterClick++;
 
-      if (_counterOne == 2 || _counterTwo == 2) {
+      if (_counterOne == 4 || _counterTwo == 4) {
         showDialog(
             context: context,
             builder: (context) {
@@ -56,9 +64,19 @@ class _NewGameState extends State<NewGame> {
                         height: 1,
                       ),
                       TextButton(
-                        style: ButtonStyle(),
-                        onPressed: () {
+                        onPressed: () async {
+                          await FuncMatch.instance.addMat(Match(
+                            time: _timeString,
+                            point_one: _counterOne,
+                            point_two: _counterTwo,
+                            id_one: Player.players[0].id!,
+                            id_two: Player.players[1].id!,
+                            id_three: 0,
+                            id_four: 0,
+                          ));
                           Navigator.of(context).pushNamed(PageOne.routeName);
+
+                          ///
                         },
                         child: Text(
                           'OK',
@@ -77,13 +95,6 @@ class _NewGameState extends State<NewGame> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _contatos = List.generate(
-        _count,
-        (int i) => ListNumbers(
-              kolOne: _counterOne,
-              kolTwo: _counterTwo,
-            ));
-
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -94,7 +105,7 @@ class _NewGameState extends State<NewGame> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  'Nastya',
+                  '${Player.players[0].name}',
                   style: TextStyle(
                     fontSize: 16,
                   ),
@@ -103,7 +114,7 @@ class _NewGameState extends State<NewGame> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  'Vika',
+                  '${Player.players[1].name}',
                   style: TextStyle(
                     fontSize: 16,
                   ),
@@ -122,7 +133,13 @@ class _NewGameState extends State<NewGame> {
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.white),
                 ),
-                onPressed: () => _incrementCounter(true),
+                onPressed: () {
+                  _incrementCounter(true);
+                  setState(() {
+                    point.add(
+                        Point(point_one: _counterOne, point_two: _counterTwo));
+                  });
+                },
                 child: Text(
                   '$_counterOne',
                   style: TextStyle(
@@ -145,7 +162,13 @@ class _NewGameState extends State<NewGame> {
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.white),
                 ),
-                onPressed: () => _incrementCounter(false),
+                onPressed: () {
+                  _incrementCounter(false);
+                  setState(() {
+                    point.add(
+                        Point(point_one: _counterOne, point_two: _counterTwo));
+                  });
+                },
                 child: Text(
                   '$_counterTwo',
                   style: TextStyle(
@@ -164,10 +187,32 @@ class _NewGameState extends State<NewGame> {
             height: 30,
           ),
           Container(
-            height: 300.0,
-            child: new ListView(
-              children: _contatos,
+            height: 300,
+            width: 350,
+            child: ListView.builder(
               scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: point.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text('${point[index].point_one}'),
+                        Text('${point[index].point_two}'),
+                      ],
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 20,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ],
