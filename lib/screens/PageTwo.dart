@@ -1,9 +1,8 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:table_tennis/model/Players.dart';
-import 'package:table_tennis/widgets/Field.dart';
-import 'package:table_tennis/widgets/PeopleList.dart';
+import 'package:table_tennis/model/Player.dart';
+import '../widgets/PeopleList.dart';
 import '../DataBase/FunctionP.dart';
 import '../model/Person.dart';
 import '../screens/NewGame.dart';
@@ -19,6 +18,7 @@ class PageTwo extends StatefulWidget {
 class _PageTwoState extends State<PageTwo> {
   bool isSwitched = false;
   bool startGame = false;
+  //Перенести лист с игроками. Создать текущий список игроков для передачи на экран
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +68,8 @@ class _PageTwoState extends State<PageTwo> {
                     SizedBox(width: 20),
                     TextButton(
                       onPressed: () {
-                        for (int i = 0; i < Players.players.length; i++) {
-                          if (Players.players[i].checkIfAnyIsNull()) {
+                        for (int i = 0; i < Player.players.length; i++) {
+                          if (Player.players[i].checkIfAnyIsNull()) {
                             startGame = false;
                           } else {
                             startGame = true;
