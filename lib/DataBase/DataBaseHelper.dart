@@ -40,7 +40,11 @@ class DatabaseHelper {
       id_one INT,
       id_two INT,
       id_three INT,
-      id_four INT
+      id_four INT,
+      FOREIGN KEY (id_one) REFERENCES PERSON (id),
+      FOREIGN KEY (id_two) REFERENCES PERSON (id),
+      FOREIGN KEY (id_three) REFERENCES PERSON (id),
+      FOREIGN KEY (id_four) REFERENCES PERSON (id)
     )
     ''');
   }
