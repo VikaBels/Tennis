@@ -24,12 +24,13 @@ class _NewGameState extends State<NewGame> {
   int _counterClick = 0;
 
   int _count = 1;
-  //List<Map<String, int>> items = [];
   List<Point> point = [];
 
   String _timeString =
       DateFormat('yyyy-dd-MM  kk:mm').format(DateTime.now()).toString();
   // https://question-it.com/questions/967077/vsplyvajuschee-dialogovoe-okno-pri-nazhatii-knopki-vo-flattere
+
+  int kolPlayers = Player.players.length;
 
   void _incrementCounter(bool isOne) {
     setState(() {
@@ -71,12 +72,11 @@ class _NewGameState extends State<NewGame> {
                             point_two: _counterTwo,
                             id_one: Player.players[0].id!,
                             id_two: Player.players[1].id!,
-                            id_three: 0,
-                            id_four: 0,
+                            id_three:
+                                kolPlayers == 2 ? 0 : Player.players[2].id,
+                            id_four: kolPlayers == 2 ? 0 : Player.players[3].id,
                           ));
                           Navigator.of(context).pushNamed(PageOne.routeName);
-
-                          ///
                         },
                         child: Text(
                           'OK',
@@ -104,21 +104,55 @@ class _NewGameState extends State<NewGame> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
-                child: Text(
-                  '${Player.players[0].name}',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
+                child: kolPlayers == 2
+                    ? Text(
+                        '${Player.players[0].name}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Text(
+                            '${Player.players[0].name}',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            '${Player.players[1].name}',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
               ),
               Container(
                 padding: EdgeInsets.all(10),
-                child: Text(
-                  '${Player.players[1].name}',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
+                child: kolPlayers == 2
+                    ? Text(
+                        '${Player.players[1].name}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Text(
+                            '${Player.players[2].name}',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            '${Player.players[3].name}',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
               ),
             ],
           ),

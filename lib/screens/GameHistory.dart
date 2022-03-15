@@ -62,14 +62,15 @@ class _GameHistoryState extends State<GameHistory> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  Text(
-                                      //'${person.id_one}',
-                                      'Per 1'),
+                                  match.id_three != 0
+                                      ? Text('${match.id_one}\n${match.id_two}')
+                                      : Text('${match.id_one}'),
                                   Text(
                                       '${match.point_one}  -  ${match.point_two}'),
-                                  Text(
-                                      //'${person.id_two}',
-                                      'Per 2'),
+                                  match.id_three != 0
+                                      ? Text(
+                                          '${match.id_three}\n${match.id_four}')
+                                      : Text('${match.id_two}'),
                                 ],
                               ),
                               Divider(
