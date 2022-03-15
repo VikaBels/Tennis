@@ -18,7 +18,6 @@ class PageTwo extends StatefulWidget {
 class _PageTwoState extends State<PageTwo> {
   bool isSwitched = false;
   bool startGame = false;
-  //Перенести лист с игроками. Создать текущий список игроков для передачи на экран
 
   @override
   Widget build(BuildContext context) {
