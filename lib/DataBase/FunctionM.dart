@@ -17,6 +17,16 @@ class FuncMatch {
     return matchList;
   }
 
+  /*Future<List> queryAll() async {
+    Database db = await DatabaseHelper.instance.database;
+    List<Map> names = await db.rawQuery(
+        'select PERSON.name, count(MATCH.id_one) from PERSON left join Date using(id) group by PEROSN.name');
+    if (names.length > 0) {
+      return names;
+    }
+    return [];
+  }*/
+
   Future<int> addMat(Match match) async {
     Database db = await DatabaseHelper.instance.database;
     return await db.insert('MATCH', match.toMap());
