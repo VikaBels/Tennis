@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:table_tennis/model/Player.dart';
 import '../screens/AboutGame.dart';
 import '../screens/GameHistory.dart';
 import '../screens/PageTwo.dart';
@@ -35,6 +36,10 @@ class PageOne extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(PageTwo.routeName);
+                  //Сохраняются значения игроков(в полях "имя"/"отдел") с предыдущей игры
+                  while (Player.players.isNotEmpty) {
+                    Player.players.removeLast();
+                  }
                 }),
             TextButton(
               child: Row(
