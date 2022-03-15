@@ -44,14 +44,14 @@ class _GameHistoryState extends State<GameHistory> {
                         child: Text('No Persons in List.'),
                       )
                     : ListView(
-                        children: snapshot.data!.map((person) {
+                        children: snapshot.data!.map((match) {
                           return Column(
                             children: [
                               Padding(
                                 padding:
                                     const EdgeInsets.only(bottom: 19, top: 9),
                                 child: Text(
-                                  person.time,
+                                  match.time,
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
@@ -66,7 +66,7 @@ class _GameHistoryState extends State<GameHistory> {
                                       //'${person.id_one}',
                                       'Per 1'),
                                   Text(
-                                      '${person.point_one}  -  ${person.point_two}'),
+                                      '${match.point_one}  -  ${match.point_two}'),
                                   Text(
                                       //'${person.id_two}',
                                       'Per 2'),
