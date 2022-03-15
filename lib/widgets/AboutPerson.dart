@@ -31,38 +31,3 @@ class AboutPerson extends StatelessWidget {
     );
   }
 }
-
-/* 
- BoxDecoration myBoxDecoration() {
-  return BoxDecoration(
-    border: Border.all(width: 20, color: Colors.grey.shade300),
-  );
-}
- showModalBottomSheet(
-                      barrierColor: Colors.white.withOpacity(0),
-                      backgroundColor: Colors.grey.shade300,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(12)), //for the round edges
-
-                      builder: (context) {
-                        return Container(
-                          height: 150,
-                          decoration: myBoxDecoration(),
-                          //https://medium.com/flutter-community/how-to-create-card-carousel-in-flutter-979bc8ecf19
-                          child: ListView(
-                            children: <Widget>[
-                              Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('1'),
-                                    Text('2'),
-                                    Text('3'),
-                                  ]),
-                            ],
-                          ),
-                        );
-                      },
-                      context: context,
-                    );
-                  */
