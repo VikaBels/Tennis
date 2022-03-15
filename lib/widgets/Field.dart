@@ -6,7 +6,6 @@ import '../model/Person.dart';
 
 class Field extends StatefulWidget {
   AsyncSnapshot<List<Person>> snapshot;
-  //ДЛЯ НОМЕРА ПЕДАТЬ РАНЕЕ
   String name;
   bool isName;
   int num;
@@ -18,7 +17,6 @@ class Field extends StatefulWidget {
 
 class _FieldState extends State<Field> {
   int? selectedId;
-  //убрать один
   final nameController = TextEditingController();
   final departmentController = TextEditingController();
   bool startGame = false;
@@ -40,12 +38,27 @@ class _FieldState extends State<Field> {
                 border: OutlineInputBorder(),
               ),
               onTap: () {
+                widget.isName
+                    ? {
+                        if (Player.players[widget.num - 1].department != null)
+                          {
+                            nameController.text =
+                                Player.players[widget.num - 1].name!
+                          }
+                      }
+                    : {
+                        if (Player.players[widget.num - 1].name != null)
+                          {
+                            departmentController.text =
+                                Player.players[widget.num - 1].department!
+                          }
+                      };
+
                 showModalBottomSheet(
                   barrierColor: Colors.white.withOpacity(0),
                   backgroundColor: Colors.grey.shade300,
                   shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10)), //for the round edges
+                      borderRadius: BorderRadius.circular(10)),
                   context: context,
                   builder: (context) {
                     if (!widget.snapshot.hasData) {
@@ -66,42 +79,32 @@ class _FieldState extends State<Field> {
                             child: ListView(
                               //ListView.builder
                               //перенести выше,при загрузке страницы: map.tolist
-                              children: widget.snapshot.data!
-                                  .map((per) {
-                                    return Card(
-                                      color: Colors.grey.shade400,
-                                      child: ListTile(
-                                        title: Text(
-                                          widget.isName
-                                              ? per.name
-                                              : per.department,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          setState(() {
-                                            widget.isName
-                                                ? {
-                                                    nameController.text =
-                                                        per.name,
-                                                    Player
-                                                        .players[widget.num - 1]
-                                                        .name = per.name,
-                                                    Player
-                                                        .players[widget.num - 1]
-                                                        .id = per.id
-                                                  }
-                                                : {
-                                                    departmentController.text =
-                                                        per.department,
-                                                    Player
-                                                        .players[widget.num - 1]
-                                                        .department = per.department
-                                                  };
-                                          });
-                                        },
-                                        //Клик на соответствующее имя(нижнее меню)-> очищает поле
-                                        /*onLongPress: () {
+                              children: widget.snapshot.data!.map((per) {
+                                return Card(
+                                  color: Colors.grey.shade400,
+                                  child: ListTile(
+                                    title: Text(
+                                      widget.isName ? per.name : per.department,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        widget.isName
+                                            ? nameController.text = per.name
+                                            : departmentController.text =
+                                                per.department;
+
+                                        Player.players[widget.num - 1].name =
+                                            per.name;
+                                        Player.players[widget.num - 1].id =
+                                            per.id;
+                                        Player.players[widget.num - 1]
+                                            .department = per.department;
+                                      });
+                                    },
+                                    //Клик на соответствующее имя(нижнее меню)-> очищает поле
+                                    /*onLongPress: () {
                                 widget.isName
                                     ? {
                                         nameController.text = '',
@@ -114,11 +117,9 @@ class _FieldState extends State<Field> {
                                             .department = null
                                       };
                               },*/
-                                      ),
-                                    );
-                                  })
-                                  .toSet()
-                                  .toList(),
+                                  ),
+                                );
+                              }).toList(),
                             ),
                           );
                   },
