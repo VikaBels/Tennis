@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_final_fields, prefer_const_literals_to_create_immutables, file_names, prefer_const_constructors, unnecessary_new
+// ignore_for_file: prefer_final_fields, prefer_const_literals_to_create_immutables, file_names, prefer_const_constructors, unnecessary_new, unnecessary_string_interpolations, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 import '../DataBase/FunctionM.dart';
 import '../screens/PageOne.dart';
-
-import '../model/Match.dart';
 
 //https://www.youtube.com/watch?v=noi6aYsP7Go&t=438s
 // ОЧ ВАЖНОЕ
@@ -32,10 +30,9 @@ class _GameHistoryState extends State<GameHistory> {
           ),
         ),
         body: Center(
-          child: FutureBuilder<List<Match>>(
-              future: FuncMatch.instance.getMatchs(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Match>> snapshot) {
+          child: FutureBuilder<List>(
+              future: FuncMatch.instance.queryAllForAll(),
+              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: Text('Loading...'));
                 }
@@ -51,7 +48,7 @@ class _GameHistoryState extends State<GameHistory> {
                                 padding:
                                     const EdgeInsets.only(bottom: 19, top: 9),
                                 child: Text(
-                                  match.time,
+                                  match['time'],
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
@@ -62,15 +59,16 @@ class _GameHistoryState extends State<GameHistory> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  match.id_three != 0
-                                      ? Text('${match.id_one}\n${match.id_two}')
-                                      : Text('${match.id_one}'),
+                                  match['third_player'] == null
+                                      ? Text('${match['first_player']}')
+                                      : Text(
+                                          '${match['first_player']}\n${match['second_player']}'),
                                   Text(
-                                      '${match.point_one}  -  ${match.point_two}'),
-                                  match.id_three != 0
-                                      ? Text(
-                                          '${match.id_three}\n${match.id_four}')
-                                      : Text('${match.id_two}'),
+                                      '${match['point_one']}  -  ${match['point_two']}'),
+                                  match['third_player'] == null
+                                      ? Text('${match['second_player']}')
+                                      : Text(
+                                          '${match['third_player']}\n${match['fourth_player']}'),
                                 ],
                               ),
                               Divider(
