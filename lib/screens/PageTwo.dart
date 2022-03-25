@@ -1,7 +1,8 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:table_tennis/model/Player.dart';
+import 'package:table_tennis/screens/PageOne.dart';
+import '../model/Player.dart';
 import '../widgets/PeopleList.dart';
 import '../DataBase/FunctionP.dart';
 import '../model/Person.dart';
@@ -23,6 +24,13 @@ class _PageTwoState extends State<PageTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushNamed(PageOne.routeName);
+          },
+        ),
         automaticallyImplyLeading: true,
         actions: <Widget>[
           IconButton(

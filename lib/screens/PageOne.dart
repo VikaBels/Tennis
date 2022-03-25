@@ -34,7 +34,7 @@ class PageOne extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () {
+                onPressed: () async {
                   Navigator.of(context).pushNamed(PageTwo.routeName);
                   //Сохраняются значения игроков(в полях "имя"/"отдел") с предыдущей игры
                   while (Player.players.isNotEmpty) {
