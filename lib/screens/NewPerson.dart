@@ -22,21 +22,67 @@ class _NewPersonState extends State<NewPerson> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushNamed(PageTwo.routeName);
+          },
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () async {
-              await FuncPerson.instance.addPer(
-                Person(
-                    //ЗДЕСЬ ПРИСВОЕНИЕ ЗНАЧЕНИЯ И ОТРАВКА В БАЗУ
-                    name: nameController.text,
-                    department: departmentController.text),
-              );
-              setState(() {
-                nameController.clear();
-                departmentController.clear();
-              });
-
-              Navigator.of(context).pushNamed(PageTwo.routeName);
+              nameController.text != "" && departmentController.text != ""
+                  ? () async {
+                      await FuncPerson.instance.addPer(
+                        Person(
+                            //ЗДЕСЬ ПРИСВОЕНИЕ ЗНАЧЕНИЯ И ОТРАВКА В БАЗУ
+                            name: nameController.text,
+                            department: departmentController.text),
+                      );
+                      Navigator.of(context).pushNamed(PageTwo.routeName);
+                    }
+                  : setState(() {
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Container(
+                                padding: EdgeInsets.only(top: 8),
+                                height: 90,
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Вы не ввели данные',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text('Пожалуйста, повторите попытку'),
+                                    Divider(
+                                      height: 1,
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.of(context)
+                                            .pushNamed(NewPerson.routeName);
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(color: Colors.blue),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                      nameController.clear();
+                      departmentController.clear();
+                    });
             },
             child: Text(
               'Готово',
