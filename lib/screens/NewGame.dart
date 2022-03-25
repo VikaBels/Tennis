@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:table_tennis/model/Player.dart';
-import 'package:table_tennis/model/Point.dart';
+import '../model/Player.dart';
+import '../model/Point.dart';
+import '../screens/PageTwo.dart';
 import '../DataBase/FunctionM.dart';
 import '../model/Match.dart';
-
 import '../screens/PageOne.dart';
 
 class NewGame extends StatefulWidget {
@@ -23,7 +23,7 @@ class _NewGameState extends State<NewGame> {
   int _counterTwo = 0;
   int _counterClick = 0;
 
-  int _count = 1;
+  bool circle = true;
   List<Point> point = [];
 
   String _timeString =
@@ -31,6 +31,7 @@ class _NewGameState extends State<NewGame> {
   // https://question-it.com/questions/967077/vsplyvajuschee-dialogovoe-okno-pri-nazhatii-knopki-vo-flattere
 
   int kolPlayers = Player.players.length;
+  int kolCircle = 0;
 
   void _incrementCounter(bool isOne) {
     setState(() {
@@ -40,10 +41,22 @@ class _NewGameState extends State<NewGame> {
         _counterTwo++;
       }
 
+      kolPlayers == 2 ? kolCircle = 2 : kolCircle = 5;
+
       _counterClick++;
 
-      if (_counterOne == 4 || _counterTwo == 4) {
+      if (_counterClick < kolCircle && _counterClick > -1) {
+        circle = true;
+      } else {
+        circle = false;
+      }
+      if (_counterClick == kolCircle + 1) {
+        _counterClick = -kolCircle + 1;
+      }
+
+      if (_counterOne == 14 || _counterTwo == 14) {
         showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (context) {
               return Dialog(
@@ -89,7 +102,6 @@ class _NewGameState extends State<NewGame> {
               );
             });
       }
-      _count = _count + 1;
     });
   }
 
@@ -160,9 +172,7 @@ class _NewGameState extends State<NewGame> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              _counterClick % 2 == 0
-                  ? Icon(Icons.circle)
-                  : Icon(Icons.circle_outlined),
+              circle ? Icon(Icons.circle) : Icon(Icons.circle_outlined),
               TextButton(
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.white),
@@ -212,9 +222,7 @@ class _NewGameState extends State<NewGame> {
                   ),
                 ),
               ),
-              _counterClick % 2 == 0
-                  ? Icon(Icons.circle_outlined)
-                  : Icon(Icons.circle),
+              circle ? Icon(Icons.circle_outlined) : Icon(Icons.circle),
             ],
           ),
           SizedBox(
