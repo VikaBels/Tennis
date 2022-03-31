@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
 
@@ -32,57 +32,57 @@ class _NewPersonState extends State<NewPerson> {
         actions: <Widget>[
           TextButton(
             onPressed: () async {
-              nameController.text != "" && departmentController.text != ""
-                  ? () async {
-                      await FuncPerson.instance.addPer(
-                        Person(
-                            //ЗДЕСЬ ПРИСВОЕНИЕ ЗНАЧЕНИЯ И ОТРАВКА В БАЗУ
-                            name: nameController.text,
-                            department: departmentController.text),
-                      );
-                      Navigator.of(context).pushNamed(PageTwo.routeName);
-                    }
-                  : setState(() {
-                      showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Container(
-                                padding: EdgeInsets.only(top: 8),
-                                height: 90,
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      'Вы не ввели данные',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text('Пожалуйста, повторите попытку'),
-                                    Divider(
-                                      height: 1,
-                                    ),
-                                    TextButton(
-                                      onPressed: () async {
-                                        Navigator.of(context)
-                                            .pushNamed(NewPerson.routeName);
-                                      },
-                                      child: Text(
-                                        'OK',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                    )
-                                  ],
+              if (nameController.text != "" &&
+                  departmentController.text != "") {
+                await FuncPerson.instance.addPer(
+                  Person(
+                      //ЗДЕСЬ ПРИСВОЕНИЕ ЗНАЧЕНИЯ И ОТРАВКА В БАЗУ
+                      name: nameController.text,
+                      department: departmentController.text),
+                );
+                Navigator.of(context).pushNamed(PageTwo.routeName);
+              } else
+                setState(() {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Container(
+                            padding: EdgeInsets.only(top: 8),
+                            height: 90,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Вы не ввели данные',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            );
-                          });
-                      nameController.clear();
-                      departmentController.clear();
-                    });
+                                Text('Пожалуйста, повторите попытку'),
+                                Divider(
+                                  height: 1,
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(context)
+                                        .pushNamed(NewPerson.routeName);
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                  nameController.clear();
+                  departmentController.clear();
+                });
             },
             child: Text(
               'Готово',
