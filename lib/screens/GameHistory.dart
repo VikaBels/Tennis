@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields, prefer_const_literals_to_create_immutables, file_names, prefer_const_constructors, unnecessary_new, unnecessary_string_interpolations, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
+import 'package:table_tennis/model/AboutOneM.dart';
 import '../DataBase/FunctionM.dart';
 import '../screens/PageOne.dart';
 
@@ -30,25 +31,26 @@ class _GameHistoryState extends State<GameHistory> {
           ),
         ),
         body: Center(
-          child: FutureBuilder<List>(
+          child: FutureBuilder<List<AboutOneM>>(
               future: FuncMatch.instance.queryAllForAll(),
-              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-                if (!snapshot.hasData) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<AboutOneM>> playersList) {
+                if (!playersList.hasData) {
                   return Center(child: Text('Loading...'));
                 }
-                return snapshot.data!.isEmpty
+                return playersList.data!.isEmpty
                     ? Center(
                         child: Text('No Persons in List.'),
                       )
                     : ListView(
-                        children: snapshot.data!.map((match) {
+                        children: playersList.data!.map((match) {
                           return Column(
                             children: [
                               Padding(
                                 padding:
                                     const EdgeInsets.only(bottom: 19, top: 9),
                                 child: Text(
-                                  match['time'],
+                                  match.time,
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
@@ -59,16 +61,16 @@ class _GameHistoryState extends State<GameHistory> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  match['third_player'] == null
-                                      ? Text('${match['first_player']}')
+                                  match.third_player == null
+                                      ? Text('${match.first_player}')
                                       : Text(
-                                          '${match['first_player']}\n${match['second_player']}'),
+                                          '${match.first_player}\n${match.second_player}'),
                                   Text(
-                                      '${match['point_one']}  -  ${match['point_two']}'),
-                                  match['third_player'] == null
-                                      ? Text('${match['second_player']}')
+                                      '${match.point_one}  -  ${match.point_two}'),
+                                  match.third_player == null
+                                      ? Text('${match.second_player}')
                                       : Text(
-                                          '${match['third_player']}\n${match['fourth_player']}'),
+                                          '${match.third_player}\n${match.fourth_player}'),
                                 ],
                               ),
                               Divider(
