@@ -6,8 +6,8 @@ import 'package:table_tennis/widgets/Field.dart';
 
 class AboutPerson extends StatelessWidget {
   final int number;
-  AsyncSnapshot<List<Person>> snapshot;
-  AboutPerson(this.number, this.snapshot);
+  List<Person> personList;
+  AboutPerson(this.number, this.personList);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class AboutPerson extends StatelessWidget {
         ),
         Flexible(
           flex: 2,
-          child: Field(snapshot, 'Отдел', false, number),
+          child: Field(personList, 'Отдел', false, number),
         ),
         SizedBox(width: 16),
         Flexible(
           flex: 2,
-          child: Field(snapshot, 'Имя', true, number),
+          child: Field(personList, 'Имя', true, number),
         ),
         SizedBox(width: 16),
       ],

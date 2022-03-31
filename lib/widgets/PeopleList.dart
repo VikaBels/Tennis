@@ -5,12 +5,12 @@ import 'package:table_tennis/model/Player.dart';
 import '../model/Person.dart';
 import '../widgets/AboutPerson.dart';
 
-Widget peopleList(int num, AsyncSnapshot<List<Person>> snapshot) {
+Widget peopleList(int num, List<Person> personList) {
   fillPlayersList(num);
   return ListView.builder(
     shrinkWrap: true,
     itemBuilder: (context, index) {
-      return AboutPerson(++index, snapshot);
+      return AboutPerson(++index, personList);
     },
     itemCount: num,
   );

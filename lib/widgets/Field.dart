@@ -5,11 +5,11 @@ import 'package:table_tennis/model/Player.dart';
 import '../model/Person.dart';
 
 class Field extends StatefulWidget {
-  AsyncSnapshot<List<Person>> snapshot;
+  List<Person> personList;
   String name;
   bool isName;
   int num;
-  Field(this.snapshot, this.name, this.isName, this.num);
+  Field(this.personList, this.name, this.isName, this.num);
 
   @override
   _FieldState createState() => _FieldState();
@@ -61,13 +61,7 @@ class _FieldState extends State<Field> {
                       borderRadius: BorderRadius.circular(10)),
                   context: context,
                   builder: (context) {
-                    if (!widget.snapshot.hasData) {
-                      return Container(
-                        height: 200,
-                        child: Center(child: Text('Loading...')),
-                      );
-                    }
-                    return widget.snapshot.data!.isEmpty
+                    return widget.personList.isEmpty
                         ? Container(
                             height: 200,
                             child: Center(
@@ -79,7 +73,7 @@ class _FieldState extends State<Field> {
                             child: ListView(
                               //ListView.builder
                               //перенести выше,при загрузке страницы: map.tolist
-                              children: widget.snapshot.data!.map((per) {
+                              children: widget.personList.map((per) {
                                 return Card(
                                   color: Colors.grey.shade400,
                                   child: ListTile(
