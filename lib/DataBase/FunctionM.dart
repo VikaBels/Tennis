@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:sqflite/sqflite.dart';
+import 'package:table_tennis/model/AboutOneM.dart';
 import '../DataBase/DataBaseHelper.dart';
 import '../model/Match.dart';
 
@@ -11,7 +12,7 @@ class FuncMatch {
   Future<List<Match>> getMatchs() async {
     Database db = await DatabaseHelper.instance.database;
     //db raw qwery
-    var matchs = await db.query('MATCH', orderBy: 'point_one');
+    var matchs = await db.query('MATCH', orderBy: 'time');
     List<Match> matchList =
         matchs.isNotEmpty ? matchs.map((c) => Match.fromMap(c)).toList() : [];
     return matchList;
@@ -47,7 +48,7 @@ class FuncMatch {
     return infList;
   }*/
 
-  Future<List<dynamic>> queryAllForAll() async {
+  Future<List<AboutOneM>> queryAllForAll() async {
     Database db = await DatabaseHelper.instance.database;
 
     var inf = await db.rawQuery(
@@ -62,7 +63,8 @@ class FuncMatch {
           Left join Person p4
           On m.id_four=p4.id
           ''');
-    List<dynamic> infList = inf.isNotEmpty ? inf.toList() : [];
+    List<AboutOneM> infList =
+        inf.isNotEmpty ? inf.map((c) => AboutOneM.fromMap(c)).toList() : [];
     return infList;
   }
 
