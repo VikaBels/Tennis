@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field, prefer_typing_uninitialized_variables
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field, prefer_typing_uninitialized_variables, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:table_tennis/screens/PageOne.dart';
@@ -43,7 +43,9 @@ class _PageTwoState extends State<PageTwo> {
       ),
       body: FutureBuilder<List<Person>>(
         future: FuncPerson.instance.getPersons(),
-        builder: (BuildContext context, AsyncSnapshot<List<Person>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Person>> asyncList) {
+          List<Person> personList =
+              asyncList.data == null ? [] : asyncList.data!;
           return Column(
             children: <Widget>[
               Padding(
@@ -97,7 +99,9 @@ class _PageTwoState extends State<PageTwo> {
                   ],
                 ),
               ),
-              !isSwitched ? peopleList(2, snapshot) : peopleList(4, snapshot),
+              !isSwitched
+                  ? peopleList(2, personList)
+                  : peopleList(4, personList),
             ],
           );
         },
